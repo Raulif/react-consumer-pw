@@ -3,7 +3,6 @@ import type {Movie} from 'src/consumer'
 import {expect, test} from '@pw/support/fixtures'
 import {editMovie} from '@pw/support/ui-helpers/edit-movie'
 import {addMovie} from '@pw/support/ui-helpers/add-movie'
-import {interceptNetworkCall} from '@pw/support/utils/network'
 
 test.describe('Movie CRUD e2e stubbed with helper', () => {
   // Generate inital movie data
@@ -18,11 +17,10 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
     director: editedDirector,
   } = generateMovie()
 
-  test('should add a movie', async ({page}) => {
+  test('should add a movie', async ({page, interceptNetworkCall}) => {
     const loadNoMovies = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
-      page,
       fulfillResponse: {
         status: 200,
         body: {data: []},
@@ -35,7 +33,6 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
     await addMovie(page, name, year, rating, director)
 
     const loadOrGetMovies = interceptNetworkCall({
-      page,
       url: '/movies',
       handler: async (route, request) => {
         if (request.method() === 'POST') {
@@ -62,11 +59,10 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
     await loadOrGetMovies
   })
 
-  test('should edit a movie', async ({page}) => {
+  test('should edit a movie', async ({page, interceptNetworkCall}) => {
     const loadGetMovies = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
-      page,
       fulfillResponse: {
         status: 200,
         body: {data: [movie]},
@@ -78,7 +74,6 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
     const loadGetMovieById = interceptNetworkCall({
       method: 'GET',
       url: `/movies/${movie.id}`,
-      page,
       fulfillResponse: {
         status: 200,
         body: {data: movie},
@@ -103,7 +98,6 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
 
     const loadUpdateMovieById = interceptNetworkCall({
       method: 'PUT',
-      page,
       url: `/movies/${movie.id}`,
       fulfillResponse: {
         status: 200,
@@ -118,11 +112,10 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
     expect(nameInput).toHaveAttribute('value', editedName)
   })
 
-  test('should delete a movie', async ({page}) => {
+  test('should delete a movie', async ({page, interceptNetworkCall}) => {
     const loadGetMovies = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
-      page,
       fulfillResponse: {
         status: 200,
         body: {data: [movie]},
@@ -134,7 +127,6 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
     const loadDeleteMovieById = interceptNetworkCall({
       method: 'DELETE',
       url: `/movies/${movie.id}`,
-      page,
       fulfillResponse: {
         status: 200,
       },
@@ -146,7 +138,6 @@ test.describe('Movie CRUD e2e stubbed with helper', () => {
     const loadGetMoviesAfterDelete = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
-      page,
       fulfillResponse: {
         status: 200,
         body: {data: []},

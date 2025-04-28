@@ -1,6 +1,6 @@
 import {test as base} from '@playwright/test'
 import {
-  interceptNetworkCall as InterceptNetworkCallOriginal,
+  interceptNetworkCall as interceptNetworkCallOriginal,
   type InterceptOptions,
 } from '../utils/network'
 
@@ -10,7 +10,7 @@ type InterceptOptionsFixture = Omit<InterceptOptions, 'page'>
 // Define the function signature as a type
 type InterceptNetworkCallFn = (
   options: InterceptOptionsFixture,
-) => ReturnType<typeof InterceptNetworkCallOriginal>
+) => ReturnType<typeof interceptNetworkCallOriginal>
 
 // group the types together
 type InterceptNetworkMethods = {
@@ -26,7 +26,7 @@ export const test = base.extend<InterceptNetworkMethods>({
       fulfillResponse,
       handler,
     }: InterceptOptionsFixture) =>
-      InterceptNetworkCallOriginal({
+      interceptNetworkCallOriginal({
         method,
         url,
         fulfillResponse,

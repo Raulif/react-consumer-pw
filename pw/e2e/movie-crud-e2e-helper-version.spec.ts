@@ -2,11 +2,8 @@ import isCI from 'is-ci'
 import {test, expect} from '../support/fixtures'
 import {runCommand} from '@pw/support/utils/run-command'
 import {addMovie} from '@pw/support/ui-helpers/add-movie'
-import {editMovie} from '@pw/support/ui-helpers/edit-movie'
 import {generateMovie} from '@cypress/support/factories'
-import {interceptNetworkCall} from '@pw/support/utils/network'
 import {Movie} from 'src/consumer'
-import {number} from '@pact-foundation/pact/src/v3/matchers'
 
 test.describe('movie crud e2e', () => {
   test.beforeAll(() => {
@@ -18,11 +15,10 @@ test.describe('movie crud e2e', () => {
     }
   })
 
-  test.beforeEach(async ({page}) => {
+  test.beforeEach(async ({page, interceptNetworkCall}) => {
     const loadGetMovies = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
-      page,
     })
 
     await page.goto('/')
@@ -32,24 +28,19 @@ test.describe('movie crud e2e', () => {
     expect(status).toBeLessThan(400)
   })
 
-  test('should add and delete a movie from movie list', async ({page}) => {
+  test('should add and delete a movie from movie list', async ({
+    page,
+    interceptNetworkCall,
+  }) => {
     const {name, year, rating, director} = generateMovie()
-    const {
-      name: editedName,
-      year: editedYear,
-      rating: editedRating,
-      director: editedDirector,
-    } = generateMovie()
 
     const loadAddMovie = interceptNetworkCall({
       method: 'POST',
       url: '/movies',
-      page,
     })
     const loadAllMovies = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
-      page,
     })
 
     // Add movie
@@ -94,13 +85,15 @@ test.describe('movie crud e2e', () => {
     const loadDeleteMovie = interceptNetworkCall({
       method: 'DELETE',
       url: `/movies/${movieId}`,
-      page,
     })
 
     const deleteButton = await page.getByTestId(`delete-movie-${name}`)
     deleteButton.click()
 
-    const {status: deleteMovieResponseStatus, responseJson: {message: deleteMovieResponseMessage}} = (await loadDeleteMovie) as {
+    const {
+      status: deleteMovieResponseStatus,
+      responseJson: {message: deleteMovieResponseMessage},
+    } = (await loadDeleteMovie) as {
       status: Number
       responseJson: {status: Number; message: String}
     }
@@ -108,12 +101,11 @@ test.describe('movie crud e2e', () => {
     expect(deleteMovieResponseStatus).toBe(200)
     expect(deleteMovieResponseMessage).toContain(movieId.toString())
     expect(deleteButton).not.toBeVisible()
-    
+
     // Load all movies again after deleting movie
     const loadAllMoviesAfterDelete = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
-      page,
     })
     await page.goto('/')
 
