@@ -5,14 +5,14 @@ import {addMovie} from '@pw/support/ui-helpers/add-movie'
 import {editMovie} from '@pw/support/ui-helpers/edit-movie'
 import {generateMovie} from '@cypress/support/factories'
 import {InterceptNetworkCall} from '@pw/support/utils/network'
-import { OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi'
+import {OpenApiGeneratorV3} from '@asteasolutions/zod-to-openapi'
 
 test.describe('movie crud e2e', () => {
   test.beforeAll(() => {
     const responseCode = runCommand(
       `curl -s -o /dev/null -w "%{http_code}" ${process.env.VITE_API_URL}`,
     )
-    console.log({responseCode})
+
     if (isCI || responseCode !== '200') {
       test.skip()
     }
@@ -35,12 +35,6 @@ test.describe('movie crud e2e', () => {
 
   test('should add and delete a movie from movie list', async ({page}) => {
     const {name, year, rating, director} = generateMovie()
-    const {
-      name: editedName,
-      year: editedYear,
-      rating: editedRating,
-      director: editedDirector,
-    } = generateMovie()
 
     const loadAddMovie = page.waitForResponse(
       response =>
@@ -70,10 +64,9 @@ test.describe('movie crud e2e', () => {
         response.request().method() === 'DELETE',
     )
 
-    const deleteButton = await page
-      .getByTestId(`delete-movie-${name}`)
+    const deleteButton = await page.getByTestId(`delete-movie-${name}`)
 
-      deleteButton.click()
+    deleteButton.click()
 
     const deleteMovieResponse = await loadDeleteMovie
     const deleteMovieBody = await deleteMovieResponse.json()
@@ -82,5 +75,54 @@ test.describe('movie crud e2e', () => {
       message: expect.any(String),
     })
     expect(deleteButton).not.toBeVisible()
+  })
+
+  test('should update and delete a movie at movie manage', async ({
+    page,
+    apiRequest,
+    addMovie
+  }) => {
+    const movie = generateMovie()
+    const editedMovie = generateMovie()
+
+    const {
+      body: {token},
+    } = await apiRequest<{token: string}>({
+      method: 'GET',
+      url: '/auth/fake-token',
+      baseUrl: process.env.VITE_API_URL,
+    })
+
+    const {
+      body: {data: newMovieData},
+    } = await addMovie(token, movie, process.env.VITE_API_URL)
+
+    // Go to movie page and edit movie
+    await page.goto(`/movies/${newMovieData.id}`)
+    await editMovie(
+      page,
+      editedMovie.name,
+      editedMovie.year,
+      editedMovie.director,
+      editedMovie.rating,
+    )
+
+    // Check that edited name is visible on movie page
+    await page.getByText(editedMovie.name).isVisible()
+
+    // Go back to movie list
+    await page.getByTestId('back').click()
+    await expect(page).toHaveURL('/movies')
+    // Check that movie name is visible on list
+    await expect(page.getByText(editedMovie.name)).toBeVisible()
+
+    // Go to movie page and delete movie
+    await page.goto(`/movies/${newMovieData.id}`)
+    await expect(page).toHaveURL(`/movies/${newMovieData.id}`)
+    await page.getByTestId('delete-movie').click()
+
+    // Check that movie is not on the list
+    await expect(page).toHaveURL('/movies')
+    await expect(page.getByText(editedMovie.name)).toBeHidden()
   })
 })
