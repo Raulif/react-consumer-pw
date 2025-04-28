@@ -7,7 +7,7 @@ type props = {
 
 export default function ValidationErrorDisplay({validationError}: props) {
   if (!validationError) return null
-
+  console.log(validationError)
   return (
     <SError>
       {validationError.errors.map(err => (

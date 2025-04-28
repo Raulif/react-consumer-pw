@@ -11,7 +11,6 @@
     "cypress.d.ts",
     "pw",
     "playwright-ct.config.ts",
-    "playwright.config.ts",
     "playwright/index.tsx",
     "vitest.config.ts",
     "vitest.headless.config.ts",
