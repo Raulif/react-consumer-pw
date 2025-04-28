@@ -2,7 +2,7 @@ import {generateMovie} from '@cypress/support/factories'
 import type {Movie} from 'src/consumer'
 import {expect, test} from '@pw/support/fixtures'
 import {editMovie} from '@pw/support/ui-helpers/edit-movie'
-import {addMovie} from '@pw/support/ui-helpers/add-movies'
+import {addMovie} from '@pw/support/ui-helpers/add-movie'
 import {interceptNetworkCall} from '@pw/support/utils/network'
 
 test.describe('Movie CRUD e2e stubbed with helper', () => {
