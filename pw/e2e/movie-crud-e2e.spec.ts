@@ -4,9 +4,6 @@ import {runCommand} from '@pw/support/utils/run-command'
 import {addMovie} from '@pw/support/ui-helpers/add-movie'
 import {editMovie} from '@pw/support/ui-helpers/edit-movie'
 import {generateMovie} from '@cypress/support/factories'
-import {InterceptNetworkCall} from '@pw/support/utils/network'
-import {OpenApiGeneratorV3} from '@asteasolutions/zod-to-openapi'
-
 test.describe('movie crud e2e', () => {
   test.beforeAll(() => {
     const responseCode = runCommand(
@@ -60,7 +57,7 @@ test.describe('movie crud e2e', () => {
 
     const loadDeleteMovie = page.waitForResponse(
       response =>
-        response.url().includes(`/movies/`) &&
+        response.url().includes('/movies/') &&
         response.request().method() === 'DELETE',
     )
 
@@ -80,7 +77,7 @@ test.describe('movie crud e2e', () => {
   test('should update and delete a movie at movie manage', async ({
     page,
     apiRequest,
-    addMovie
+    addMovie,
   }) => {
     const movie = generateMovie()
     const editedMovie = generateMovie()

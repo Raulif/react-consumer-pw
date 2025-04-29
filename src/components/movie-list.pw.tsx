@@ -2,8 +2,6 @@ import {test, expect} from '@playwright/experimental-ct-react'
 import MovieList from './movie-list'
 import {generateMovie} from '@support/factories'
 import sinon from 'sinon'
-import {page} from '@vitest/browser/context'
-
 test.describe('<MovieList>', () => {
   const sandbox = sinon.createSandbox()
   const onDelete = sandbox.stub()
@@ -24,7 +22,7 @@ test.describe('<MovieList>', () => {
     await expect(component.getByTestId('movie-list-comp')).not.toBeVisible()
   })
 
-  test('should verify the movie and delete', async ({page, mount}) => {
+  test('should verify the movie and delete', async ({_page, mount}) => {
     const movie1 = {id: 1, ...generateMovie()}
     const movie2 = {id: 2, ...generateMovie()}
     const component = await mount(

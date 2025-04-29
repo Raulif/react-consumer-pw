@@ -29,8 +29,8 @@ describe('<MovieList>', () => {
     expect(screen.getByTestId('movie-list-comp')).toBeVisible()
     const movieItems = screen.getAllByTestId('movie-item-comp')
     expect(movieItems).toHaveLength(2)
-    movieItems.forEach((mi) => expect(mi).toBeVisible())
+    movieItems.forEach(mi => expect(mi).toBeVisible())
     screen.getAllByText('Delete')[0]?.click()
-    expect(onDelete).toHaveBeenCalledOnce
+    expect(onDelete).toHaveBeenCalledOnce()
   })
 })
