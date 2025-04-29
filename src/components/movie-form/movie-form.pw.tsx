@@ -70,7 +70,6 @@ test.describe('<MovieForm>', () => {
     await fillName(component, 'me')
     await component.getByText('Add Movie').click()
     validationError = component.getByTestId('validation-error')
-    console.log(validationError.count())
     expect(validationError).toHaveCount(1)
 
     await fillDirector(component, 'Christopher Nolan')
