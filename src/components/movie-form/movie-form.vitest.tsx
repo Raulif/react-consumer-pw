@@ -8,9 +8,10 @@ import {
   worker,
   wrappedRender,
 } from '@vitest-utils/utils'
+
+import type {Movie} from 'src/consumer'
 import MovieForm from './movie-form'
 import {generateMovie} from '@cypress/support/factories'
-import {Movie} from 'src/consumer'
 
 describe('<MovieForm />', () => {
   const movie: Omit<Movie, 'id'> = generateMovie()
@@ -48,7 +49,7 @@ describe('<MovieForm />', () => {
         const data = await request.json()
         postRequest = data
 
-        return new Response(JSON.stringify(data), {
+        return new Response(undefined, {
           status: 200,
         })
       }),

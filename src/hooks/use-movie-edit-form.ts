@@ -1,8 +1,8 @@
-import {useState} from 'react'
-import {useUpdateMovie} from '@hooks/use-movies'
-import {UpdateMovieSchema} from '@provider-schema/schema'
-import type {ZodError} from 'zod'
-import type {Movie} from 'src/consumer'
+import type { Movie } from 'src/consumer'
+import { UpdateMovieSchema } from '@provider-schema/schema'
+import type { ZodError } from 'zod'
+import { useState } from 'react'
+import { useUpdateMovie } from '@hooks/use-movies'
 
 export function useMovieEditForm(initialMovie: Movie) {
   const [movieName, setMovieName] = useState(initialMovie.name)
@@ -11,7 +11,7 @@ export function useMovieEditForm(initialMovie: Movie) {
   const [movieDirector, setMovieDirector] = useState(initialMovie.director)
   const [validationError, setValidationError] = useState<ZodError | null>(null)
 
-  const {status, mutate} = useUpdateMovie()
+  const { status, mutate } = useUpdateMovie()
   const movieLoading = status === 'pending'
 
   // Zod Key feature 3: safeParse

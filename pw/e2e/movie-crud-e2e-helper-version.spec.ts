@@ -3,7 +3,7 @@ import {test, expect} from '../support/fixtures'
 import {runCommand} from '@pw/support/utils/run-command'
 import {addMovie} from '@pw/support/ui-helpers/add-movie'
 import {generateMovie} from '@cypress/support/factories'
-import {Movie} from 'src/consumer'
+import type {Movie} from 'src/consumer'
 
 test.describe('movie crud e2e', () => {
   test.beforeAll(() => {
@@ -49,8 +49,8 @@ test.describe('movie crud e2e', () => {
 
     const {status: addMovieStatus, responseJson: addMovieResponseJson} =
       (await loadAddMovie) as {
-        status: Number
-        responseJson: {status: Number; data: Movie}
+        status: number
+        responseJson: {status: number; data: Movie}
       }
 
     const movieId = addMovieResponseJson.data.id
@@ -94,8 +94,8 @@ test.describe('movie crud e2e', () => {
       status: deleteMovieResponseStatus,
       responseJson: {message: deleteMovieResponseMessage},
     } = (await loadDeleteMovie) as {
-      status: Number
-      responseJson: {status: Number; message: String}
+      status: number
+      responseJson: {status: number; message: string}
     }
     // Movie ID should be in response message and delete button should not be there anymore
     expect(deleteMovieResponseStatus).toBe(200)

@@ -1,4 +1,5 @@
-import {test, expect, MountResult} from '@playwright/experimental-ct-react'
+import type {MountResult} from '@playwright/experimental-ct-react'
+import {test, expect} from '@playwright/experimental-ct-react'
 import {generateMovie} from '@cypress/support/factories'
 import MovieForm from './movie-form'
 import type {Movie} from 'src/consumer'
@@ -65,7 +66,7 @@ test.describe('<MovieForm>', () => {
     await expect(
       component.getByText('Number must be greater than or equal to 1900'),
     ).toBeVisible()
-    
+
     await fillYear(component, 2000)
     await fillName(component, 'me')
     await component.getByText('Add Movie').click()

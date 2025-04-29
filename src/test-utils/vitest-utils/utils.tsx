@@ -36,7 +36,6 @@ const AllTheProviders: FC<WrapperProps> = ({
   )
 }
 
-
 /**
  * Custom render function that wraps component with all necessary providers:
  * - QueryClientProvider
