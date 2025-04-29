@@ -22,7 +22,7 @@ test.describe('<MovieList>', () => {
     await expect(component.getByTestId('movie-list-comp')).not.toBeVisible()
   })
 
-  test('should verify the movie and delete', async ({_page, mount}) => {
+  test('should verify the movie and delete', async ({mount}) => {
     const movie1 = {id: 1, ...generateMovie()}
     const movie2 = {id: 2, ...generateMovie()}
     const component = await mount(
