@@ -1,4 +1,10 @@
-import {describe, expect, it, screen, wrappedRender} from '@vitest-utils/utils'
+import {
+  describe,
+  expect,
+  it,
+  screen,
+  wrappedRender,
+} from '@vitest-utils/utils'
 import LoadingMessage from './loading-message'
 
 describe('<LoadingMessage>', () => {

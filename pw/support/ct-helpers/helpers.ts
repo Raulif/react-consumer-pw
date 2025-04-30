@@ -1,4 +1,4 @@
-import type {MountResult} from '@playwright/experimental-ct-react'
+import type { MountResult } from '@playwright/experimental-ct-react'
 
 export const getByPlaceholder = (comp: MountResult, placeholder: string) =>
   comp.getByPlaceholder(placeholder)

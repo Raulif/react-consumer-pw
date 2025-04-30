@@ -1,4 +1,4 @@
-import type {AxiosResponse, AxiosError} from 'axios'
+import type { AxiosResponse, AxiosError } from 'axios'
 import axios from 'axios'
 import type {
   ConflictMovieResponse,
@@ -43,13 +43,13 @@ const yieldData = <T>(res: AxiosResponse<T>): T => res.data
 // Helper function to handle errors
 const handleError = (err: AxiosError): ErrorResponse => {
   if (err.response?.data) return err.response.data as ErrorResponse
-  return {error: 'Unexpected error occurred'}
+  return { error: 'Unexpected error occurred' }
 }
 
 const generateAuthToken = (): string => `Bearer ${new Date().toISOString()}`
 
 const commonHeaders = {
-  headers: {Authorization: generateAuthToken()},
+  headers: { Authorization: generateAuthToken() },
 }
 
 // Fetch all movies

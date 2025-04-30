@@ -1,13 +1,13 @@
-import type {ReactNode, FC} from 'react'
-import {Suspense} from 'react'
-import type {RenderOptions} from '@testing-library/react'
-import {render} from 'vitest-browser-react'
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import {ErrorBoundary} from 'react-error-boundary'
-import {MemoryRouter, Routes, Route} from 'react-router-dom'
+import type { ReactNode, FC } from 'react'
+import { Suspense } from 'react'
+import type { RenderOptions } from '@testing-library/react'
+import { render } from 'vitest-browser-react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ErrorBoundary } from 'react-error-boundary'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import ErrorComponent from '@components/error-component'
 import LoadingMessage from '@components/loading-message'
-import {describe, it, expect, vi} from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import userEvent from '@testing-library/user-event'
 
 interface WrapperProps {
@@ -55,7 +55,7 @@ export function wrappedRender(
   } = {},
 ) {
   return render(ui, {
-    wrapper: ({children}) => (
+    wrapper: ({ children }) => (
       <AllTheProviders route={route} path={path}>
         {children}
       </AllTheProviders>
@@ -67,4 +67,4 @@ export function wrappedRender(
 // re-export everything
 export * from '@testing-library/react'
 export * from './msw-setup'
-export {describe, it, expect, vi, userEvent}
+export { describe, it, expect, vi, userEvent }

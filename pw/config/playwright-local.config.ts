@@ -1,6 +1,6 @@
-import {baseConfig} from './base.config'
+import { baseConfig } from './base.config'
 import merge from 'lodash/merge'
-import {config as dotenvConfig} from 'dotenv'
+import { config as dotenvConfig } from 'dotenv'
 import path from 'node:path'
 
 dotenvConfig({

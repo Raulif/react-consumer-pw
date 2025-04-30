@@ -3,9 +3,7 @@ import { expect, test } from '@playwright/experimental-ct-react'
 import type { Movie } from 'src/consumer'
 import MovieInput from './movie-input'
 import { generateMovie } from '@cypress/support/factories'
-import { interceptNetworkCall } from '@pw/support/utils/network'
 import sinon from 'sinon'
-import { cp } from 'fs'
 
 test.describe('<MovieInput>', async () => {
   const sandbox = sinon.createSandbox()
@@ -15,7 +13,7 @@ test.describe('<MovieInput>', async () => {
   test.afterEach(() => sandbox.restore())
 
   test('should render a name input', async ({ page, mount }) => {
-    const component = await mount(
+    await mount(
       <MovieInput
         type="text"
         value={movie.name}
@@ -32,7 +30,7 @@ test.describe('<MovieInput>', async () => {
   })
 
   test('should render a year input', async ({ page, mount }) => {
-    const component = await mount(
+    await mount(
       <MovieInput
         type="number"
         value={movie.year}

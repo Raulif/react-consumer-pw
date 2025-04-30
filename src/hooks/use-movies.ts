@@ -4,7 +4,7 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query'
-import type {Movie} from '../consumer'
+import type { Movie } from '../consumer'
 import {
   getMovies,
   addMovie,
@@ -47,7 +47,7 @@ export const useAddMovie = () => {
     mutationFn: (movie: Omit<Movie, 'id'>) => addMovie(movie),
 
     // Invalidate cache when a new movie is added
-    onSuccess: () => queryClient.invalidateQueries({queryKey: ['movies']}),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['movies'] }),
   })
 }
 
@@ -64,7 +64,7 @@ export const useUpdateMovie = () => {
       movie: Partial<Omit<Movie, 'id'>>
     }) => updateMovie(id, movie),
     // handles both error and success scenarios
-    onSettled: () => queryClient.invalidateQueries({queryKey: ['movies']}),
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['movies'] }),
     // Optional: Handle errors globally if needed
     onError: error => {
       console.error('Update failed', error)
@@ -78,7 +78,7 @@ export const useDeleteMovie = () => {
 
   return useMutation({
     mutationFn: (id: number) => deleteMovieById(id),
-    onSuccess: () => queryClient.invalidateQueries({queryKey: ['movies']}),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['movies'] }),
   })
 }
 

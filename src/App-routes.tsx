@@ -8,14 +8,14 @@ import {
   Routes,
   useSearchParams,
 } from 'react-router-dom'
-import type {ErrorResponse, Movie} from './consumer'
+import type { ErrorResponse, Movie } from './consumer'
 
 type AppRoutesProps = Readonly<{
   movies: Movie[] | ErrorResponse | undefined
   onDelete: (id: number) => void
 }>
 
-export default function AppRoutes({movies, onDelete}: AppRoutesProps) {
+export default function AppRoutes({ movies, onDelete }: AppRoutesProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -43,7 +43,7 @@ export default function AppRoutes({movies, onDelete}: AppRoutesProps) {
  * // Example usage:
  * <MovieListWithForm movies={movieArray} onDelete={handleDeleteMovie} />
  */
-function MovieListWithForm({movies, onDelete}: AppRoutesProps) {
+function MovieListWithForm({ movies, onDelete }: AppRoutesProps) {
   const [searchParams] = useSearchParams()
   const movieName = searchParams.get('name')
 

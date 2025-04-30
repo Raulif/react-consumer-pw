@@ -9,9 +9,9 @@ import {
   wrappedRender,
 } from '@vitest-utils/utils'
 
-import type {Movie} from 'src/consumer'
+import type { Movie } from 'src/consumer'
 import MovieForm from './movie-form'
-import {generateMovie} from '@cypress/support/factories'
+import { generateMovie } from '@cypress/support/factories'
 
 describe('<MovieForm />', () => {
   const movie: Omit<Movie, 'id'> = generateMovie()
@@ -45,7 +45,7 @@ describe('<MovieForm />', () => {
 
     let postRequest
     worker.use(
-      http.post('http://localhost:3001/movies', async ({request}) => {
+      http.post('http://localhost:3001/movies', async ({ request }) => {
         const data = await request.json()
         postRequest = data
 

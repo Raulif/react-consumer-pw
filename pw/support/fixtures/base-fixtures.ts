@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {test as base} from '@playwright/test'
+import { test as base } from '@playwright/test'
 import {
   spyOn as spyOnOriginal,
   stubMethod as stubMethodOriginal,
@@ -17,20 +17,20 @@ const test = base.extend<{
   spyOn: SpyOnFn
   stubMethod: StubMethodFn
 }>({
-  spyOn: async ({page}, use) => {
+  spyOn: async ({ page }, use) => {
     const spyOnFn: SpyOnFn = (objectName, method) =>
       spyOnOriginal(page, objectName, method)
     await use(spyOnFn)
   },
 
-  stubMethod: async ({page}, use) => {
+  stubMethod: async ({ page }, use) => {
     const stubMethod: StubMethodFn = (objectName, method, implementation) =>
       stubMethodOriginal(page, objectName, method, implementation)
     await use(stubMethod)
   },
 })
 
-export {test}
+export { test }
 
 /*
 We can have a base fixtures file and we can extend it

@@ -1,7 +1,7 @@
 import '@cypress/skip-test/support'
-import {generateMovie} from '@support/factories'
-import {addMovie} from '@support/helpers/add-movie'
-import {editMovie} from '@support/helpers/edit-movie'
+import { generateMovie } from '@support/factories'
+import { addMovie } from '@support/helpers/add-movie'
+import { editMovie } from '@support/helpers/edit-movie'
 import spok from 'cy-spok'
 
 describe('movie crud e2e', () => {
@@ -27,7 +27,7 @@ describe('movie crud e2e', () => {
 
   it('should add and delete a movie from movie list', () => {
     cy.log('**add a movie**')
-    const {name, year, rating, director} = generateMovie()
+    const { name, year, rating, director } = generateMovie()
     addMovie(name, year, rating, director)
 
     cy.intercept('POST', '/movies').as('addMovie')
@@ -64,7 +64,7 @@ describe('movie crud e2e', () => {
   })
 
   it('should update and delete a movie at movie manager', () => {
-    const {name, year, rating, director} = generateMovie()
+    const { name, year, rating, director } = generateMovie()
     const {
       name: editedName,
       year: editedYear,
@@ -72,7 +72,7 @@ describe('movie crud e2e', () => {
       director: editedDirector,
     } = generateMovie()
 
-    cy.addMovie({name, year, rating, director})
+    cy.addMovie({ name, year, rating, director })
       .its('body.data.id')
       .then(id => {
         cy.log('**direct-nav by id**')

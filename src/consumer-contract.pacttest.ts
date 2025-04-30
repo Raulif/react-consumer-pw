@@ -1,7 +1,7 @@
-import type {V3MockServer} from '@pact-foundation/pact'
-import {MatchersV3, PactV4} from '@pact-foundation/pact'
+import type { V3MockServer } from '@pact-foundation/pact'
+import { MatchersV3, PactV4 } from '@pact-foundation/pact'
 import path from 'path'
-import type {ErrorResponse, Movie} from './consumer'
+import type { ErrorResponse, Movie } from './consumer'
 import {
   addMovie,
   deleteMovieById,
@@ -11,7 +11,10 @@ import {
   setApiUrl,
   updateMovie,
 } from './consumer'
-import {createProviderState, setJsonBody} from './test-utils/pact-utils/helpers'
+import {
+  createProviderState,
+  setJsonBody,
+} from './test-utils/pact-utils/helpers'
 import type {
   DeleteMovieResponse,
   GetMovieResponse,
@@ -20,7 +23,7 @@ import type {
 
 // full list of matchers:
 // https://docs.pact.io/implementation_guides/javascript/docs/matching#v3-matching-rules
-const {like, eachLike, integer, decimal, string} = MatchersV3
+const { like, eachLike, integer, decimal, string } = MatchersV3
 
 // 1) Setup the mock provider for the consumer
 // 2) Register the consumer's expectations against the (mock) provider
@@ -103,7 +106,10 @@ describe('Movies API', () => {
         .given('No movies exist')
         .uponReceiving('a request to get all movies')
         .withRequest('GET', '/movies')
-        .willRespondWith(200, setJsonBody({status: 200, data: like(noMovies)}))
+        .willRespondWith(
+          200,
+          setJsonBody({ status: 200, data: like(noMovies) }),
+        )
         .executeTest(async (mockServer: V3MockServer) => {
           setApiUrl(mockServer.url)
           const res = await getMovies()
@@ -123,7 +129,7 @@ describe('Movies API', () => {
         .given(stateName, stateParams)
         .uponReceiving('a request to get a movie by name')
         .withRequest('GET', '/movies', builder => {
-          builder.query({name: movieWithId.name}) // Use query to specify query parameters
+          builder.query({ name: movieWithId.name }) // Use query to specify query parameters
         })
         .willRespondWith(
           200,
@@ -160,7 +166,7 @@ describe('Movies API', () => {
     it('should return a specific movie', async () => {
       const [stateName, stateParams] = createProviderState({
         name: 'Has a movie with a specific ID',
-        params: {id: testId},
+        params: { id: testId },
       })
 
       await pact
@@ -235,7 +241,7 @@ describe('Movies API', () => {
         .addInteraction()
         .given(stateName, stateParams)
         .uponReceiving('a request to the existing movie')
-        .withRequest('POST', '/movies', setJsonBody({...movieWithoutId}))
+        .withRequest('POST', '/movies', setJsonBody({ ...movieWithoutId }))
         .willRespondWith(409, setJsonBody(errorRes))
         .executeTest(async (mockServer: V3MockServer) => {
           // Override the API URL to point to the mock server
@@ -258,7 +264,7 @@ describe('Movies API', () => {
 
       const [stateName, stateParams] = createProviderState({
         name: 'Has a movie with a specific ID',
-        params: {id: testId},
+        params: { id: testId },
       })
 
       await pact
@@ -303,7 +309,7 @@ describe('Movies API', () => {
 
       const state = createProviderState({
         name: 'Has a movie with a specific ID',
-        params: {id: testId},
+        params: { id: testId },
       })
 
       await pact
@@ -311,7 +317,7 @@ describe('Movies API', () => {
         .given(...state)
         .uponReceiving('a request to delete a movie that exists')
         .withRequest('DELETE', `/movies/${testId}`)
-        .willRespondWith(200, setJsonBody({status: 200, message}))
+        .willRespondWith(200, setJsonBody({ status: 200, message }))
         .executeTest(async (mockServer: V3MockServer) => {
           // Override the API URL to point to the mock server
           setApiUrl(mockServer.url)
@@ -328,7 +334,7 @@ describe('Movies API', () => {
         .addInteraction()
         .uponReceiving('a request to delete a non-existing movie')
         .withRequest('DELETE', `/movies/${testId}`)
-        .willRespondWith(404, setJsonBody({error, status: 404}))
+        .willRespondWith(404, setJsonBody({ error, status: 404 }))
         .executeTest(async (mockServer: V3MockServer) => {
           // Override the API URL to point to the mock server
           setApiUrl(mockServer.url)

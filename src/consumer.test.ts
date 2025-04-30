@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-import nock, {cleanAll} from 'nock'
+import nock, { cleanAll } from 'nock'
 import {
   getMovies,
   getMovieById,
@@ -11,7 +11,7 @@ import {
   deleteMovieById,
   updateMovie,
 } from './consumer'
-import type {Movie, ErrorResponse} from './consumer'
+import type { Movie, ErrorResponse } from './consumer'
 import type {
   DeleteMovieResponse,
   GetMovieResponse,
@@ -65,7 +65,7 @@ describe('Consumer API functions', () => {
     it('should return all movies', async () => {
       nock(API_URL)
         .get('/movies')
-        .reply(200, {status: 200, data: [movieWithId]})
+        .reply(200, { status: 200, data: [movieWithId] })
 
       const res = await getMovies()
       expect(res.data).toEqual([movieWithId])
@@ -75,7 +75,7 @@ describe('Consumer API functions', () => {
     // in reality, the provider never errors; it just returns an empty array,
     // but our code can handle an error, so we can test it...
     it('should handle errors correctly', async () => {
-      const errorRes: ErrorResponse = {error: 'Not found'}
+      const errorRes: ErrorResponse = { error: 'Not found' }
       nock(API_URL).get('/movies').reply(404, errorRes)
 
       const res = await getMovies()
@@ -85,7 +85,7 @@ describe('Consumer API functions', () => {
     it('should return a specific movie by name', async () => {
       nock(API_URL)
         .get(`/movies?name=${movieWithId.name}`)
-        .reply(200, {status: 200, data: movieWithId})
+        .reply(200, { status: 200, data: movieWithId })
 
       const res = (await getMovieByName(movieWithId.name)) as GetMovieResponse
       expect(res.data).toEqual(movieWithId)
@@ -100,7 +100,7 @@ describe('Consumer API functions', () => {
       // in pact the provider state would be specified here
       nock(API_URL)
         .get(`/movies/${movieWithId.id}`)
-        .reply(200, {status: 200, data: movieWithId})
+        .reply(200, { status: 200, data: movieWithId })
 
       const res = (await getMovieById(1)) as GetMovieResponse
       expect(res.data).toEqual(movieWithId)
@@ -108,7 +108,7 @@ describe('Consumer API functions', () => {
 
     it('should handle errors when movie not found', async () => {
       const testId = 999
-      const errorRes: ErrorResponse = {error: 'Movie not found'}
+      const errorRes: ErrorResponse = { error: 'Movie not found' }
       nock(API_URL).get(`/movies/${testId}`).reply(404, errorRes)
 
       const res = await getMovieById(testId)
@@ -173,11 +173,11 @@ describe('Consumer API functions', () => {
 
       nock(API_URL)
         .put(`/movies/${testId}`, updatedMovieData)
-        .reply(200, {status: 200, movie: EXPECTED_BODY})
+        .reply(200, { status: 200, movie: EXPECTED_BODY })
 
       const res = await updateMovie(testId, updatedMovieData)
 
-      expect(res).toEqual({status: 200, movie: EXPECTED_BODY})
+      expect(res).toEqual({ status: 200, movie: EXPECTED_BODY })
     })
 
     it('should return an error if movie to update does not exist', async () => {
@@ -206,7 +206,7 @@ describe('Consumer API functions', () => {
       // in pact the provider state would be specified here
       nock(API_URL)
         .delete(`/movies/${testId}`)
-        .reply(200, {message, status: 200})
+        .reply(200, { message, status: 200 })
 
       const res = (await deleteMovieById(testId)) as DeleteMovieResponse
       expect(res.message).toEqual(message)
@@ -219,7 +219,7 @@ describe('Consumer API functions', () => {
       // in pact the provider state would be specified here
       nock(API_URL)
         .delete(`/movies/${testId}`)
-        .reply(404, {message, status: 404})
+        .reply(404, { message, status: 404 })
 
       const res = (await deleteMovieById(testId)) as DeleteMovieResponse
       expect(res.message).toEqual(message)

@@ -1,4 +1,4 @@
-import {defineConfig, devices} from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
 
 export const baseConfig = defineConfig({
   testDir: '../e2e',
@@ -20,7 +20,7 @@ export const baseConfig = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: {...devices['Desktop Chrome']},
+      use: { ...devices['Desktop Chrome'] },
     },
   ],
 })

@@ -1,4 +1,4 @@
-import {generateMovie} from '@support/factories'
+import { generateMovie } from '@support/factories'
 import MovieList from './movie-list'
 
 describe('<MovieList />', () => {
@@ -13,7 +13,7 @@ describe('<MovieList />', () => {
   it('should show error with error', () => {
     cy.routeWrappedMount(
       <MovieList
-        movies={{error: 'boom'}}
+        movies={{ error: 'boom' }}
         onDelete={cy.stub().as('onDelete')}
       />,
     )
@@ -25,8 +25,8 @@ describe('<MovieList />', () => {
   it('should verify the movie and delete', () => {
     const movie1Id = 7
     const movie2Id = 42
-    const movie1 = {id: movie1Id, ...generateMovie()}
-    const movie2 = {id: movie2Id, ...generateMovie()}
+    const movie1 = { id: movie1Id, ...generateMovie() }
+    const movie2 = { id: movie2Id, ...generateMovie() }
 
     cy.routeWrappedMount(
       <MovieList

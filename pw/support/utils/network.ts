@@ -1,4 +1,4 @@
-import type {Page, Request, Response, Route} from '@playwright/test'
+import type { Page, Request, Response, Route } from '@playwright/test'
 import picomatch from 'picomatch'
 
 export type InterceptNetworkCall = ReturnType<typeof interceptNetworkCall>
@@ -191,7 +191,7 @@ function prepareResponse(
 ): PreparedResponse | undefined {
   if (!fulfillResponse) return undefined
 
-  const {status = 200, headers = {}, body} = fulfillResponse
+  const { status = 200, headers = {}, body } = fulfillResponse
   const contentType = headers['Content-Type'] || 'application/json'
 
   return {

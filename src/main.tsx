@@ -1,6 +1,6 @@
 import React from 'react'
-import {createRoot} from 'react-dom/client'
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import { createRoot } from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from './App'
 
 const port = import.meta.env.VITE_PORT

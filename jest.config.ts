@@ -1,4 +1,4 @@
-import type {JestConfigWithTsJest} from 'ts-jest'
+import type { JestConfigWithTsJest } from 'ts-jest'
 
 export const config: JestConfigWithTsJest = {
   clearMocks: true,
@@ -18,7 +18,7 @@ export const config: JestConfigWithTsJest = {
     'clover',
     'json',
     'lcov',
-    ['text', {skipFull: true}],
+    ['text', { skipFull: true }],
     'json-summary',
   ],
   coverageThreshold: {

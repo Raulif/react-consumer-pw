@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import type {z} from 'zod'
+import type { z } from 'zod'
 
 type props = {
   readonly validationError: z.ZodError | null
 }
 
-export default function ValidationErrorDisplay({validationError}: props) {
+export default function ValidationErrorDisplay({ validationError }: props) {
   if (!validationError) return null
   console.log(validationError)
   return (

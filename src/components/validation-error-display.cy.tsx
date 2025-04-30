@@ -1,4 +1,4 @@
-import {ZodError} from 'zod'
+import { ZodError } from 'zod'
 import ValidationErrorDisplay from './validation-error-display'
 
 describe('<ValidationErrorDisplay />', () => {

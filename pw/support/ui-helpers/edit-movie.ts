@@ -1,4 +1,4 @@
-import type {Page} from '@playwright/test'
+import type { Page } from '@playwright/test'
 
 export const editMovie = async (
   page: Page,
@@ -9,7 +9,7 @@ export const editMovie = async (
 ) => {
   await page.getByTestId('edit-movie').click()
 
-  const editForm = await page.getByTestId('movie-edit-form-comp')
+  const editForm = page.getByTestId('movie-edit-form-comp')
   await editForm.getByPlaceholder('Movie name').fill(editedName)
   await editForm.getByPlaceholder('Movie year').fill(editedYear.toString())
   await editForm.getByPlaceholder('Movie rating').fill(editedRating.toString())

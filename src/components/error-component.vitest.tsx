@@ -1,4 +1,10 @@
-import {describe, expect, it, screen, wrappedRender} from '@vitest-utils/utils'
+import {
+  describe,
+  expect,
+  it,
+  screen,
+  wrappedRender,
+} from '@vitest-utils/utils'
 import ErrorComp from './error-component'
 
 describe('<ErrorComponent />', () => {

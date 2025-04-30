@@ -1,6 +1,12 @@
-import {describe, expect, it, screen, wrappedRender} from '@vitest-utils/utils'
+import {
+  describe,
+  expect,
+  it,
+  screen,
+  wrappedRender,
+} from '@vitest-utils/utils'
 import ValidationErrorDisplay from './validation-error-display'
-import {ZodError} from 'zod'
+import { ZodError } from 'zod'
 
 describe('<ValidationErrorDisplay', () => {
   it('should not render when there is no validation error', () => {

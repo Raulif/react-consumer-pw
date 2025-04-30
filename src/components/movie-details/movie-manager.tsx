@@ -1,16 +1,16 @@
 import styled from 'styled-components'
-import type {Movie} from 'src/consumer'
-import {useState} from 'react'
+import type { Movie } from 'src/consumer'
+import { useState } from 'react'
 import MovieEditForm from './movie-edit-form'
-import {SButton} from '@styles/styled-components'
-import {MovieInfo} from '@components/movie-item'
+import { SButton } from '@styles/styled-components'
+import { MovieInfo } from '@components/movie-item'
 
 export type MovieManagerProps = {
   readonly movie: Movie
   readonly onDelete: (id: number) => void
 }
 
-export default function MovieManager({movie, onDelete}: MovieManagerProps) {
+export default function MovieManager({ movie, onDelete }: MovieManagerProps) {
   const [isEditing, setIsEditing] = useState(false)
 
   return (

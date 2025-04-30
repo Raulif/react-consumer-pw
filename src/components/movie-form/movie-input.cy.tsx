@@ -1,12 +1,12 @@
 import 'cypress-map'
-import {generateMovie} from '../../../cypress/support/factories'
+import { generateMovie } from '../../../cypress/support/factories'
 import MovieInput from './movie-input'
 import spok from 'cy-spok'
 
 describe('<MovieInput />', () => {
   const movie = generateMovie()
   it('should render a name input', () => {
-    const {name} = movie
+    const { name } = movie
 
     cy.mount(
       <MovieInput
@@ -32,7 +32,7 @@ describe('<MovieInput />', () => {
 
     // 2
     cy.get('@onChange').should('have.been.calledWithMatch', {
-      nativeEvent: {data: 'a'},
+      nativeEvent: { data: 'a' },
     })
 
     // 3
@@ -43,7 +43,7 @@ describe('<MovieInput />', () => {
         spok([
           [
             {
-              nativeEvent: {data: 'a'},
+              nativeEvent: { data: 'a' },
             },
           ],
         ]),
@@ -51,7 +51,7 @@ describe('<MovieInput />', () => {
   })
 
   it('should render a year input', () => {
-    const {year} = movie
+    const { year } = movie
 
     cy.mount(
       <MovieInput
@@ -66,7 +66,7 @@ describe('<MovieInput />', () => {
     cy.getByCy('movie-input-comp-number').type('1')
 
     cy.get('@onChange').should('have.been.calledWithMatch', {
-      nativeEvent: {data: '1'},
+      nativeEvent: { data: '1' },
     })
   })
 })

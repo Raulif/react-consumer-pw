@@ -1,4 +1,4 @@
-import type {Movie} from '../../src/consumer'
+import type { Movie } from '../../src/consumer'
 import './commands'
 import './get-token'
 import '@bahmutov/cy-api'

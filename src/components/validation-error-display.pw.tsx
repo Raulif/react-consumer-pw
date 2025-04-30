@@ -1,6 +1,6 @@
-import {test, expect} from '@playwright/experimental-ct-react'
+import { test, expect } from '@playwright/experimental-ct-react'
 import ValidationErrorDisplay from './validation-error-display'
-import {ZodError} from 'zod'
+import { ZodError } from 'zod'
 
 test.describe('<ValidationErrorDisplay', () => {
   test('should not render when there is no validation error', async ({
@@ -12,7 +12,7 @@ test.describe('<ValidationErrorDisplay', () => {
     await expect(component.getByText('Name is required')).not.toBeVisible()
   })
 
-  test('should render validation errors correctly', async ({mount}) => {
+  test('should render validation errors correctly', async ({ mount }) => {
     const mockErrors = new ZodError([
       {
         path: ['name'],
@@ -29,7 +29,7 @@ test.describe('<ValidationErrorDisplay', () => {
         received: 'string',
       },
     ])
-    console.log({mockErrors: mockErrors.errors})
+    console.log({ mockErrors: mockErrors.errors })
     const component = await mount(
       <ValidationErrorDisplay validationError={mockErrors} />,
     )

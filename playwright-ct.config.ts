@@ -1,5 +1,5 @@
-import {defineConfig, devices} from '@playwright/experimental-ct-react'
-import {baseConfig} from './pw/config/base.config'
+import { defineConfig, devices } from '@playwright/experimental-ct-react'
+import { baseConfig } from './pw/config/base.config'
 import viteConfig from './vite.config'
 import merge from 'lodash/merge'
 import path from 'node:path'
@@ -39,7 +39,7 @@ export default defineConfig(
     projects: [
       {
         name: 'chromium',
-        use: {...devices['Desktop Chrome']},
+        use: { ...devices['Desktop Chrome'] },
       },
       {
         name: 'default',

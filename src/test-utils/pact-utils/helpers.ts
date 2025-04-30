@@ -1,5 +1,5 @@
-import type {JsonMap} from '@pact-foundation/pact/src/common/jsonTypes'
-import type {V4ResponseBuilder} from '@pact-foundation/pact/src/v4/http/types'
+import type { JsonMap } from '@pact-foundation/pact/src/common/jsonTypes'
+import type { V4ResponseBuilder } from '@pact-foundation/pact/src/v4/http/types'
 
 /**
  * Converts an object with arbitrary value types to a `JsonMap` where all values are compatible with Pact's expectations.

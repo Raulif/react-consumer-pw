@@ -1,9 +1,9 @@
 import isCI from 'is-ci'
-import {test, expect} from '../support/fixtures'
-import {runCommand} from '@pw/support/utils/run-command'
-import {addMovie} from '@pw/support/ui-helpers/add-movie'
-import {editMovie} from '@pw/support/ui-helpers/edit-movie'
-import {generateMovie} from '@cypress/support/factories'
+import { test, expect } from '../support/fixtures'
+import { runCommand } from '@pw/support/utils/run-command'
+import { addMovie } from '@pw/support/ui-helpers/add-movie'
+import { editMovie } from '@pw/support/ui-helpers/edit-movie'
+import { generateMovie } from '@cypress/support/factories'
 test.describe('movie crud e2e', () => {
   test.beforeAll(() => {
     const responseCode = runCommand(
@@ -15,7 +15,7 @@ test.describe('movie crud e2e', () => {
     }
   })
 
-  test.beforeEach(async ({page}) => {
+  test.beforeEach(async ({ page }) => {
     const loadGetMovies = page.waitForResponse(
       response =>
         response.url().includes('/movies') &&
@@ -25,13 +25,13 @@ test.describe('movie crud e2e', () => {
     await page.goto('/')
 
     const response = await loadGetMovies
-    const responseStatus = await response.status()
+    const responseStatus = response.status()
     expect(responseStatus).toBeGreaterThanOrEqual(200)
     expect(responseStatus).toBeLessThan(400)
   })
 
-  test('should add and delete a movie from movie list', async ({page}) => {
-    const {name, year, rating, director} = generateMovie()
+  test('should add and delete a movie from movie list', async ({ page }) => {
+    const { name, year, rating, director } = generateMovie()
 
     const loadAddMovie = page.waitForResponse(
       response =>
@@ -61,9 +61,9 @@ test.describe('movie crud e2e', () => {
         response.request().method() === 'DELETE',
     )
 
-    const deleteButton = await page.getByTestId(`delete-movie-${name}`)
+    const deleteButton = page.getByTestId(`delete-movie-${name}`)
 
-    deleteButton.click()
+    await deleteButton.click()
 
     const deleteMovieResponse = await loadDeleteMovie
     const deleteMovieBody = await deleteMovieResponse.json()
@@ -71,7 +71,7 @@ test.describe('movie crud e2e', () => {
       status: 200,
       message: expect.any(String),
     })
-    expect(deleteButton).not.toBeVisible()
+    await expect(deleteButton).not.toBeVisible()
   })
 
   test('should update and delete a movie at movie manage', async ({
@@ -83,15 +83,15 @@ test.describe('movie crud e2e', () => {
     const editedMovie = generateMovie()
 
     const {
-      body: {token},
-    } = await apiRequest<{token: string}>({
+      body: { token },
+    } = await apiRequest<{ token: string }>({
       method: 'GET',
       url: '/auth/fake-token',
       baseUrl: process.env.VITE_API_URL,
     })
 
     const {
-      body: {data: newMovieData},
+      body: { data: newMovieData },
     } = await addMovie(token, movie, process.env.VITE_API_URL)
 
     // Go to movie page and edit movie

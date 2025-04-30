@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
 
-import {configure} from '@testing-library/react'
+import { configure } from '@testing-library/react'
 
-configure({testIdAttribute: 'data-cy'})
+configure({ testIdAttribute: 'data-cy' })

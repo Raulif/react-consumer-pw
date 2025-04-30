@@ -6,7 +6,7 @@ import isCi from './tasks/is-ci'
  * @param on `on` is used to hook into various events Cypress emits
  */
 export default function tasks(on: Cypress.PluginEvents) {
-  on('task', {log})
-  on('task', {isCi})
+  on('task', { log })
+  on('task', { isCi })
   // add tasks here
 }

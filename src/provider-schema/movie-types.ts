@@ -1,7 +1,7 @@
 // in the real world, this file which is from the server side
 // would be published in a package and installed here
 
-import type {z} from 'zod'
+import type { z } from 'zod'
 import type {
   CreateMovieResponseSchema,
   CreateMovieSchema,

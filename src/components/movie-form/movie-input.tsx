@@ -1,4 +1,4 @@
-import {SInput} from '@styles/styled-components'
+import { SInput } from '@styles/styled-components'
 
 type MovieInputProps = Readonly<{
   type: 'text' | 'number'

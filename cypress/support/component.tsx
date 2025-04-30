@@ -2,12 +2,12 @@
 
 import ErrorComponent from '@components/error-component'
 import LoadingMessage from '@components/loading-message'
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import type {MountOptions} from 'cypress/react18'
-import {mount} from 'cypress/react18'
-import {Suspense} from 'react'
-import {ErrorBoundary} from 'react-error-boundary'
-import {MemoryRouter, Routes, Route} from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import type { MountOptions } from 'cypress/react18'
+import { mount } from 'cypress/react18'
+import { Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import './commands'
 
 Cypress.Commands.add('mount', mount)
@@ -32,7 +32,7 @@ const routeWrappedMount = (
     cypressOptions?: MountOptions
   },
 ) => {
-  const {route = '/', path = '/', cypressOptions = {}} = options || {}
+  const { route = '/', path = '/', cypressOptions = {} } = options || {}
   window.history.pushState({}, 'Test Page', route)
 
   const routerWrappedComp = (

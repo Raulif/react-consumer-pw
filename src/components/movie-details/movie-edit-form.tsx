@@ -1,16 +1,16 @@
 import styled from 'styled-components'
-import {useMovieEditForm} from '@hooks/use-movie-edit-form'
-import {SButton} from '@styles/styled-components'
-import type {Movie} from 'src/consumer'
+import { useMovieEditForm } from '@hooks/use-movie-edit-form'
+import { SButton } from '@styles/styled-components'
+import type { Movie } from 'src/consumer'
 import ValidationErrorDisplay from '@components/validation-error-display'
-import {MovieInput} from '@components/movie-form'
+import { MovieInput } from '@components/movie-form'
 
 type MovieEditFormProps = Readonly<{
   movie: Movie
   onCancel: () => void
 }>
 
-export default function MovieEditForm({movie, onCancel}: MovieEditFormProps) {
+export default function MovieEditForm({ movie, onCancel }: MovieEditFormProps) {
   const {
     movieName,
     setMovieName,

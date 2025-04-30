@@ -1,6 +1,6 @@
-import type {Movie} from 'src/consumer'
-import {test as baseApiRequestFixture} from './api-request-fixture'
-import type {ApiRequestResponse} from './api-request-fixture'
+import type { Movie } from 'src/consumer'
+import { test as baseApiRequestFixture } from './api-request-fixture'
+import type { ApiRequestResponse } from './api-request-fixture'
 
 const commonHeaders = (token: string) => ({
   Authorization: token,
@@ -61,7 +61,7 @@ type MovieApiMethods = {
 
 // Generic Type Extension
 export const test = baseApiRequestFixture.extend<MovieApiMethods>({
-  addMovie: async ({apiRequest}, use) => {
+  addMovie: async ({ apiRequest }, use) => {
     const addMovieFn: MovieApiMethods['addMovie'] = async (
       token,
       body,
@@ -80,7 +80,7 @@ export const test = baseApiRequestFixture.extend<MovieApiMethods>({
   },
 
   // getAllMovies
-  getAllMovies: async ({apiRequest}, use) => {
+  getAllMovies: async ({ apiRequest }, use) => {
     const getAllMoviesFn: MovieApiMethods['getAllMovies'] = (
       token,
       baseUrl?,
@@ -96,7 +96,7 @@ export const test = baseApiRequestFixture.extend<MovieApiMethods>({
   },
 
   // getMovieById
-  getMovieById: async ({apiRequest}, use) => {
+  getMovieById: async ({ apiRequest }, use) => {
     const getMovieByIdFn: MovieApiMethods['getMovieById'] = async (
       token,
       id,
@@ -112,13 +112,13 @@ export const test = baseApiRequestFixture.extend<MovieApiMethods>({
     await use(getMovieByIdFn)
   },
 
-  getMovieByName: async ({apiRequest}, use) => {
+  getMovieByName: async ({ apiRequest }, use) => {
     const getMovieByNameFn: MovieApiMethods['getMovieByName'] = async (
       token,
       name,
       baseUrl?,
     ) => {
-      const queryParams = new URLSearchParams({name}).toString()
+      const queryParams = new URLSearchParams({ name }).toString()
       const url = `/movies?${queryParams}`
 
       return apiRequest<ServerResponse<Movie[]>>({
@@ -131,7 +131,7 @@ export const test = baseApiRequestFixture.extend<MovieApiMethods>({
     await use(getMovieByNameFn)
   },
 
-  updateMovie: async ({apiRequest}, use) => {
+  updateMovie: async ({ apiRequest }, use) => {
     const updateMovieFn: MovieApiMethods['updateMovie'] = (
       token,
       id,
@@ -149,7 +149,7 @@ export const test = baseApiRequestFixture.extend<MovieApiMethods>({
     await use(updateMovieFn)
   },
 
-  deleteMovie: async ({apiRequest}, use) => {
+  deleteMovie: async ({ apiRequest }, use) => {
     const deleteMovieFn: MovieApiMethods['deleteMovie'] = (
       token,
       id,

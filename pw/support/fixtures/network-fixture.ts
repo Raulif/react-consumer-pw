@@ -1,4 +1,4 @@
-import {test as base} from '@playwright/test'
+import { test as base } from '@playwright/test'
 import {
   interceptNetworkCall as interceptNetworkCallOriginal,
   type InterceptOptions,
@@ -19,7 +19,7 @@ type InterceptNetworkMethods = {
 
 // Generic Type Extension
 export const test = base.extend<InterceptNetworkMethods>({
-  interceptNetworkCall: async ({page}, use) => {
+  interceptNetworkCall: async ({ page }, use) => {
     const interceptNetworkCallFn: InterceptNetworkCallFn = ({
       method,
       url,

@@ -1,4 +1,4 @@
-import type {MovieManagerProps} from './movie-manager'
+import type { MovieManagerProps } from './movie-manager'
 import MovieManager from './movie-manager'
 
 describe('<MovieManager />', () => {

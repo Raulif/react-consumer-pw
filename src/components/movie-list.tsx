@@ -1,15 +1,15 @@
 import ErrorComp from '@components/error-component'
 import styled from 'styled-components'
-import type {ErrorResponse, Movie} from '../consumer'
+import type { ErrorResponse, Movie } from '../consumer'
 import MovieItem from './movie-item'
-import {STitle} from '@styles/styled-components'
+import { STitle } from '@styles/styled-components'
 
 type MovieListProps = Readonly<{
   movies: Movie[] | ErrorResponse | undefined
   onDelete: (id: number) => void
 }>
 
-export default function MovieList({movies, onDelete}: MovieListProps) {
+export default function MovieList({ movies, onDelete }: MovieListProps) {
   if (Array.isArray(movies) && movies.length === 0) {
     return null
   }

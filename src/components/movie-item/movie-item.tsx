@@ -1,9 +1,9 @@
-import {Link} from 'react-router-dom'
-import {SButton} from '@styles/styled-components'
+import { Link } from 'react-router-dom'
+import { SButton } from '@styles/styled-components'
 import styled from 'styled-components'
-import type {Movie} from 'src/consumer'
+import type { Movie } from 'src/consumer'
 
-type MovieItemProps = Movie & {onDelete: (id: number) => void}
+type MovieItemProps = Movie & { onDelete: (id: number) => void }
 
 export default function MovieItem({
   id,

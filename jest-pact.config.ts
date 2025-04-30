@@ -1,5 +1,5 @@
-import type {JestConfigWithTsJest} from 'ts-jest'
-import {transform} from './jest.config'
+import type { JestConfigWithTsJest } from 'ts-jest'
+import { transform } from './jest.config'
 
 export const config: JestConfigWithTsJest = {
   clearMocks: true,

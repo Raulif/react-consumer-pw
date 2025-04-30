@@ -1,10 +1,10 @@
-import type {Movie} from 'src/consumer'
+import type { Movie } from 'src/consumer'
 
 type MovieInfoProps = {
   readonly movie: Movie
 }
 
-export default function MovieInfo({movie}: MovieInfoProps) {
+export default function MovieInfo({ movie }: MovieInfoProps) {
   return (
     <div data-cy="movie-info-comp">
       <h2>{movie.name}</h2>

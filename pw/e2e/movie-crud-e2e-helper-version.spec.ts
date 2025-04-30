@@ -1,9 +1,9 @@
 import isCI from 'is-ci'
-import {test, expect} from '../support/fixtures'
-import {runCommand} from '@pw/support/utils/run-command'
-import {addMovie} from '@pw/support/ui-helpers/add-movie'
-import {generateMovie} from '@cypress/support/factories'
-import type {Movie} from 'src/consumer'
+import { test, expect } from '../support/fixtures'
+import { runCommand } from '@pw/support/utils/run-command'
+import { addMovie } from '@pw/support/ui-helpers/add-movie'
+import { generateMovie } from '@cypress/support/factories'
+import type { Movie } from 'src/consumer'
 
 test.describe('movie crud e2e', () => {
   test.beforeAll(() => {
@@ -15,7 +15,7 @@ test.describe('movie crud e2e', () => {
     }
   })
 
-  test.beforeEach(async ({page, interceptNetworkCall}) => {
+  test.beforeEach(async ({ page, interceptNetworkCall }) => {
     const loadGetMovies = interceptNetworkCall({
       method: 'GET',
       url: '/movies',
@@ -23,7 +23,7 @@ test.describe('movie crud e2e', () => {
 
     await page.goto('/')
 
-    const {status} = await loadGetMovies
+    const { status } = await loadGetMovies
     expect(status).toBeGreaterThanOrEqual(200)
     expect(status).toBeLessThan(400)
   })
@@ -32,7 +32,7 @@ test.describe('movie crud e2e', () => {
     page,
     interceptNetworkCall,
   }) => {
-    const {name, year, rating, director} = generateMovie()
+    const { name, year, rating, director } = generateMovie()
 
     const loadAddMovie = interceptNetworkCall({
       method: 'POST',
@@ -47,10 +47,10 @@ test.describe('movie crud e2e', () => {
     await addMovie(page, name, year, rating, director)
     await page.getByTestId('add-movie-button').click()
 
-    const {status: addMovieStatus, responseJson: addMovieResponseJson} =
+    const { status: addMovieStatus, responseJson: addMovieResponseJson } =
       (await loadAddMovie) as {
         status: number
-        responseJson: {status: number; data: Movie}
+        responseJson: { status: number; data: Movie }
       }
 
     const movieId = addMovieResponseJson.data.id
@@ -71,14 +71,14 @@ test.describe('movie crud e2e', () => {
     // Load all movies
     await page.goto('/')
 
-    const {responseJson: loadAllMoviesBeforeDeletingResponseJson} =
+    const { responseJson: loadAllMoviesBeforeDeletingResponseJson } =
       (await loadAllMovies) as {
-        responseJson: {data: Movie[]}
+        responseJson: { data: Movie[] }
       }
 
     // Check that added movie is within array of all movies
     expect(loadAllMoviesBeforeDeletingResponseJson.data).toContainEqual(
-      expect.objectContaining({id: movieId}),
+      expect.objectContaining({ id: movieId }),
     )
 
     // Delete added movie
@@ -87,20 +87,20 @@ test.describe('movie crud e2e', () => {
       url: `/movies/${movieId}`,
     })
 
-    const deleteButton = await page.getByTestId(`delete-movie-${name}`)
-    deleteButton.click()
+    const deleteButton = page.getByTestId(`delete-movie-${name}`)
+    await deleteButton.click()
 
     const {
       status: deleteMovieResponseStatus,
-      responseJson: {message: deleteMovieResponseMessage},
+      responseJson: { message: deleteMovieResponseMessage },
     } = (await loadDeleteMovie) as {
       status: number
-      responseJson: {status: number; message: string}
+      responseJson: { status: number; message: string }
     }
     // Movie ID should be in response message and delete button should not be there anymore
     expect(deleteMovieResponseStatus).toBe(200)
     expect(deleteMovieResponseMessage).toContain(movieId.toString())
-    expect(deleteButton).not.toBeVisible()
+    await expect(deleteButton).not.toBeVisible()
 
     // Load all movies again after deleting movie
     const loadAllMoviesAfterDelete = interceptNetworkCall({
@@ -110,13 +110,13 @@ test.describe('movie crud e2e', () => {
     await page.goto('/')
 
     // Check that deleted movie is not among array of movies
-    const {responseJson: loadAllMoviesAfterDeleteResponseJson} =
+    const { responseJson: loadAllMoviesAfterDeleteResponseJson } =
       (await loadAllMoviesAfterDelete) as {
-        responseJson: {data: Movie[]}
+        responseJson: { data: Movie[] }
       }
 
     expect(loadAllMoviesAfterDeleteResponseJson.data).not.toContainEqual(
-      expect.objectContaining({id: movieId}),
+      expect.objectContaining({ id: movieId }),
     )
   })
 })
