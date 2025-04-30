@@ -33,7 +33,9 @@
     "jest": "jest",
     "test": "jest",
     "vitest:run": "vitest run --config vitest.headless.config.ts",
-    "vitest:open": "vitest --config vitest.browser.config.ts"
+    "vitest:open": "vitest --config vitest.browser.config.ts",
+    "pw:burn-in": "npx playwright test -c pw/config/playwright-local.config.ts --repeat-each=10 --retries=0",
+    "pw:burn-in-changed": "npx playwright test -c pw/config/playwright-local.config.ts --only-changed=main --repeat-each=10 --retries=0"
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "7.3.0",
